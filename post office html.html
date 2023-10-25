@@ -1,0 +1,131 @@
+<!--  Auther: Ben Schuessler
+#Date: 10/25/23
+#Descritpion: This is a webstite that calculates the cost of a package based on package length, height, thickness, and the start and end zipcode -->
+<
+!DOCTYPE html>
+<html>
+<center>
+<head>
+    <title>Postage Cost</title>
+</head>
+
+<body style="background-color: rgb(143, 205, 207);">
+    <h1>Postage Cost</h1>
+
+    <form id="myForm">
+        <table>
+            <tr>
+                <td><label for="length">length:</label></td>
+                <td><input type="text" id="length" name="length" required></td>
+                </tr>
+            
+            <tr>
+                <td><label for="height">height:</label></td>
+                <td><input type="text" id="height" name="height" required></td>
+            </tr>
+
+            <tr>
+            <td><label for="thickness">thickness:</label></td>
+            <td><input type="text" id="thickness" name="thickness" required></td>
+            </tr>
+
+            <tr>
+            <td><label for="start_zipcode">start zipcode:</label></td>
+            <td><input type="text" id="start_zipcode" name="start_zipcode" required></td>
+            </tr>
+          
+            <tr>
+            <td><label for="end_zipcode">end zipcode:</label></td>
+            <td><input type="text" id="end_zipcode" name="end_zipcode" required></td>
+            </tr>
+        </table>
+
+    </form>
+    <button onclick="calculate()">calculate</button>
+    <label id="message"></label>
+</center>
+
+    <script>
+        function calculate() { // function that operates as main
+            var length = parseFloat(document.getElementById("length").value);
+            var height = parseFloat(document.getElementById("height").value);
+            var thickness = parseFloat(document.getElementById("thickness").value);
+            var start_zipcode = parseInt(document.getElementById("start_zipcode").value);
+            var end_zipcode = parseInt(document.getElementById("end_zipcode").value);
+
+            var category = determine_category(length, thickness, height);
+            var start_zone = determine_zone(start_zipcode);
+            var end_zone = determine_zone(end_zipcode);
+            var diff = Math.abs(start_zone - end_zone);
+            var cost = calculate_price(category, diff);
+            cost = String(Math.round(cost * 1000) / 1000);
+            cost = (parseFloat(cost)).toFixed(2);
+
+            if (cost[0] === "0") {
+                cost = cost.substring(1);
+            }
+            const message = document.getElementById("message");
+            message.innerHTML = cost
+        }
+        function determine_category(length, thickness, height) // function determines catagory based on properties of package (length, height, thickness)
+         {
+            var distance = (length*2 + height*2 + thickness*2)
+            if (4.25 >= length && length >= 3.5 && 6.125 >= height && height >= 3.5 && 0.16 >= thickness && thickness >= 0.007) {
+            return "regular post card";
+            } else if (6 >= length && length >= 4.25 && 11.5 >= height && height >= 5 && 0.015 >= thickness && thickness >= 0.007) {
+                return "large post card";
+            } else if (6.125 >= length && length >= 3.5 && 11.5 >= height && height >= 5 && 0.25 >= thickness && thickness >= 0.016) {
+                return "envelope";
+            } else if (24 >= length && length >= 6.125 && 18 >= height && height >= 11 && 0.5 >= thickness && thickness >= 0.25) {
+                return "large envelope";
+            } else if (distance <= 84) {
+                return "package";
+            } else if (130 >= distance && distance >= 84) {
+                return "large package";
+            }
+                    }
+            
+        function calculate_price(category, diff) { // function calculates package cost/ final output price
+            if (category === "regular post card") {
+                var base_cost = 0.2;
+                var cost = base_cost + 0.03 * diff;
+            } else if (category === "large post card") {
+                var base_cost = 0.37;
+                var cost = base_cost + 0.03 * diff;
+            } else if (category === "envelope") {
+                var base_cost = 0.37;
+                var cost = base_cost + 0.04 * diff;
+            } else if (category === "large envelope") {
+                var base_cost = 0.60;
+                var cost = base_cost + 0.05 * diff;
+            } else if (category === "package") {
+                var base_cost = 2.95;
+                var cost = base_cost + 0.25 * diff;
+            } else if (category === "large package") {
+                var base_cost = 3.95;
+                var cost = base_cost + 0.35 * diff;
+            } else {
+    console.log("Invalid input");
+}
+return cost
+        }
+
+        function determine_zone(zipcode) { //function determines zone by using difference of start and end zip code
+            if (1 <= zipcode && zipcode <= 6999) {
+                return 1;
+            } else if (7000 <= zipcode && zipcode <= 19999) {
+                return 2;
+            } else if (20000 <= zipcode && zipcode <= 35999) {
+                return 3;
+            } else if (36000 <= zipcode && zipcode <= 62999) {
+                return 4;
+            } else if (63000 <= zipcode && zipcode <= 84999) {
+                return 5;
+            } else if (85000 <= zipcode && zipcode <= 99999) {
+                return 6;
+            return cost;
+        }}
+    </script>
+</body>
+
+</html>
