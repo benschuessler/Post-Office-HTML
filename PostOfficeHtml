@@ -1,8 +1,7 @@
 <!--  Auther: Ben Schuessler
 #Date: 10/25/23
 #Descritpion: This is a webstite that calculates the cost of a package based on package length, height, thickness, and the start and end zipcode -->
-<
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <center>
 <head>
