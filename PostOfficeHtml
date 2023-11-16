@@ -68,12 +68,12 @@
             message.innerHTML = cost
         }
         function determine_category(length, thickness, height) 
-        // Description: determines package category based on properties of package
-        // Takes dimensions:
+        // Description: determines package catagory based on properties of package
+        // Takes dimmensions:
         // Length 
-        // thickness
+        // thicknesss
         // height
-        // returns package category: 
+        // returns package catagory: 
         // regular postcard, large postcard, envelope, large envelope, package, large package   
          {
             var distance = (length*2 + height*2 + thickness*2)
