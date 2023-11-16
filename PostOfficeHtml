@@ -47,17 +47,17 @@
     <script>
         function calculate() 
         { // function that operates as main
-            var length = parseFloat(document.getElementById("length").value);
-            var height = parseFloat(document.getElementById("height").value);
-            var thickness = parseFloat(document.getElementById("thickness").value);
-            var start_zipcode = parseInt(document.getElementById("start_zipcode").value);
-            var end_zipcode = parseInt(document.getElementById("end_zipcode").value);
+            length = parseFloat(document.getElementById("length").value);
+            height = parseFloat(document.getElementById("height").value);
+            thickness = parseFloat(document.getElementById("thickness").value);
+            start_zipcode = parseInt(document.getElementById("start_zipcode").value);
+            end_zipcode = parseInt(document.getElementById("end_zipcode").value);
 
-            var category = determine_category(length, thickness, height);
-            var start_zone = determine_zone(start_zipcode);
-            var end_zone = determine_zone(end_zipcode);
-            var diff = Math.abs(start_zone - end_zone);
-            var cost = calculate_price(category, diff);
+            category = determine_category(length, thickness, height);
+            start_zone = determine_zone(start_zipcode);
+            end_zone = determine_zone(end_zipcode);
+            diff = Math.abs(start_zone - end_zone);
+            cost = calculate_price(category, diff);
             cost = String(Math.round(cost * 1000) / 1000);
             cost = (parseFloat(cost)).toFixed(2); //rounds to 2 decimal places
 
