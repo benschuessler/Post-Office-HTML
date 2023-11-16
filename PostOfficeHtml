@@ -1,6 +1,6 @@
 <!--  Auther: Ben Schuessler
 #Date: 10/25/23
-#Descritpion: This is a webstite that calculates the cost of a package based on package length, height, thickness, and the start and end zipcode -->
+#Descritpion: This is a website that calculates the cost of a package based on package length, height, thickness, and the start and end zipcode -->
 <!DOCTYPE html>
 <html>
 <center>
@@ -45,7 +45,8 @@
 </center>
 
     <script>
-        function calculate() { // function that operates as main
+        function calculate() 
+        { // function that operates as main
             var length = parseFloat(document.getElementById("length").value);
             var height = parseFloat(document.getElementById("height").value);
             var thickness = parseFloat(document.getElementById("thickness").value);
@@ -58,7 +59,7 @@
             var diff = Math.abs(start_zone - end_zone);
             var cost = calculate_price(category, diff);
             cost = String(Math.round(cost * 1000) / 1000);
-            cost = (parseFloat(cost)).toFixed(2);
+            cost = (parseFloat(cost)).toFixed(2); //rounds to 2 decimal places
 
             if (cost[0] === "0") {
                 cost = cost.substring(1);
@@ -66,13 +67,20 @@
             const message = document.getElementById("message");
             message.innerHTML = cost
         }
-        function determine_category(length, thickness, height) // function determines catagory based on properties of package (length, height, thickness)
+        function determine_category(length, thickness, height) 
+        // Description: determines package category based on properties of package
+        // Takes dimensions:
+        // Length 
+        // thickness
+        // height
+        // returns package category: 
+        // regular postcard, large postcard, envelope, large envelope, package, large package   
          {
             var distance = (length*2 + height*2 + thickness*2)
             if (4.25 >= length && length >= 3.5 && 6.125 >= height && height >= 3.5 && 0.16 >= thickness && thickness >= 0.007) {
-            return "regular post card";
+            return "regular postcard";
             } else if (6 >= length && length >= 4.25 && 11.5 >= height && height >= 5 && 0.015 >= thickness && thickness >= 0.007) {
-                return "large post card";
+                return "large postcard";
             } else if (6.125 >= length && length >= 3.5 && 11.5 >= height && height >= 5 && 0.25 >= thickness && thickness >= 0.016) {
                 return "envelope";
             } else if (24 >= length && length >= 6.125 && 18 >= height && height >= 11 && 0.5 >= thickness && thickness >= 0.25) {
@@ -84,32 +92,43 @@
             }
                     }
             
-        function calculate_price(category, diff) { // function calculates package cost/ final output price
-            if (category === "regular post card") {
-                var base_cost = 0.2;
-                var cost = base_cost + 0.03 * diff;
-            } else if (category === "large post card") {
-                var base_cost = 0.37;
-                var cost = base_cost + 0.03 * diff;
+        function calculate_price(category, diff) { 
+        // Description: determines final output price by using base_cost of package
+        // Takes package information:
+        // category
+        // base cost
+        // Returns final cost:
+        // cost
+            if (category === "regular postcard") {
+                base_cost = 0.2;
+                cost = base_cost + 0.03 * diff;
+            } else if (category === "large postcard") {
+                base_cost = 0.37;
+                cost = base_cost + 0.03 * diff;
             } else if (category === "envelope") {
-                var base_cost = 0.37;
-                var cost = base_cost + 0.04 * diff;
+                base_cost = 0.37;
+                cost = base_cost + 0.04 * diff;
             } else if (category === "large envelope") {
-                var base_cost = 0.60;
-                var cost = base_cost + 0.05 * diff;
+                base_cost = 0.60;
+                cost = base_cost + 0.05 * diff;
             } else if (category === "package") {
-                var base_cost = 2.95;
-                var cost = base_cost + 0.25 * diff;
+                base_cost = 2.95;
+                cost = base_cost + 0.25 * diff;
             } else if (category === "large package") {
-                var base_cost = 3.95;
-                var cost = base_cost + 0.35 * diff;
+                base_cost = 3.95;
+                cost = base_cost + 0.35 * diff;
             } else {
     console.log("Invalid input");
 }
 return cost
         }
 
-        function determine_zone(zipcode) { //function determines zone by using difference of start and end zip code
+        function determine_zone(zipcode) { 
+        //Description: determines zone by using difference of 2 zipcodes
+        //takes 2 zip codes:
+        //zipcode
+        //returns zone and cost:
+        //cost
             if (1 <= zipcode && zipcode <= 6999) {
                 return 1;
             } else if (7000 <= zipcode && zipcode <= 19999) {
